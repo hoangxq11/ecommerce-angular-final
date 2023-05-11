@@ -1,0 +1,177 @@
+<div class="Container-sc-itwfbd-0 hfMLFx snipcss-l8mXU" style="padding-top: 1.6%; padding-bottom: 6%;">
+    <div class="main-title">
+        <h4>
+            Giỏ Hàng
+        </h4>
+    </div>
+    <div class="styles__Content-sc-1mncg38-1 kXPYZZ">
+        <div class="styles__Left-sc-1mncg38-2 negmo">
+            <div class="styles__StyledContainerComponent-sc-9ar1hx-0 bvhHZE">
+                <div>
+                    <div class="infinite-scroll-component  style-f2WZ6" id="style-f2WZ6">
+                        <div class="styles__StyledSeller-sc-1x870ln-0 kJwXxa">
+                            <div class="sellers__group">
+                            </div>
+                            <div class="styles__StyledIntended-sc-1x870ln-1 ihAmbT">
+                                <div *ngFor="let productCart of listProductCartRes.data; trackBy: trackItem"
+                                style="border-bottom: 2.5px solid rgb(244, 244, 244); margin-bottom: 2%;">
+                                    <div class="styles__StyledNormalProduct-sc-1ulujnv-0 eZNlgw">
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <div class="product__images false">
+                                                    <div class="product__checkbox">
+                                                        <label class="styles__StyledCheckbox-sc-kvz5pc-0 hNjxWW">
+                                                            <input [(ngModel)]="productCart.checked"
+                                                                [id]="productCart.productDetailDto.id"
+                                                                (change)="addToPayment($event.target)" type="checkbox"
+                                                                data-view-id=""
+                                                                data-view-index="4c68a586-e7fa-11ed-8b02-2ecced684e65">
+                                                            <span class="checkbox-fake">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <a class="product__img" data-view-id="cart_main_product"
+                                                        data-view-index="4c68a586-e7fa-11ed-8b02-2ecced684e65"
+                                                        [routerLink]="['/product-detail', convertToSlug(productCart.productDetailDto.productDto.name)+'-p'+productCart.productDetailDto.productDto.id]">
+                                                        <picture class="webpimg-container">
+                                                            <source type="image/webp"
+                                                                srcset="{{productCart.productDetailDto.productDto.images[0].imageUrl}}">
+                                                            <img [src]="productCart.productDetailDto.productDto.images[0].imageUrl"
+                                                                srcset="{{productCart.productDetailDto.productDto.images[0].imageUrl}}"
+                                                                class="WebpImg__StyledImg-sc-h3ozu8-0 fWjUGo">
+                                                        </picture>
+                                                    </a>
+                                                    <div class="product__content">
+                                                        <a class="product__name" 
+                                                            data-view-id="cart_main_product"
+                                                            data-view-index="4c68a586-e7fa-11ed-8b02-2ecced684e65"
+                                                            [routerLink]="['/product-detail', convertToSlug(productCart.productDetailDto.productDto.name)+'-p'+productCart.productDetailDto.productDto.id]">
+                                                            {{productCart.productDetailDto.productDto.name.length <= 40
+                                                                ? productCart.productDetailDto.productDto.name :
+                                                                productCart.productDetailDto.productDto.name.substring(0,
+                                                                40) + " ..." }} </a>
+                                                                <p class="product__title-tikinow">
+                                                                    <span class="product__title-tikinow-icon">
+                                                                        Màu sắc:
+                                                                    </span>
+                                                                    <span class="product__title-tikinow-title">
+                                                                        {{productCart.productDetailDto.color != null ?
+                                                                        productCart.productDetailDto.color.name :
+                                                                        'None'}}
+                                                                    </span>
+                                                                </p>
+                                                                <div class="styles__StyledWrapper-sc-11uvcxb-0 gVBcCW style-Qyfer"
+                                                                    id="style-Qyfer">
+                                                                    <div class="badge-content">
+                                                                        <span class="badge-content__text">
+                                                                            Kích cỡ:
+                                                                        </span>
+                                                                        <span class="badge-content__vnd">
+                                                                            {{productCart.productDetailDto.size != null
+                                                                            ?
+                                                                            productCart.productDetailDto.size.name :
+                                                                            'None'}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <p class="product__wrap-prices">
+                                                    <span class="product__real-prices">
+                                                        {{(productCart.productDetailDto.price).toLocaleString().replaceAll(",",
+                                                            ".")}} ₫
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="product-qty">
+                                                    <div class="styles__StyledQuantity-sc-18gisz0-0 gEpOC">
+                                                        <span (click)="decrementValue(productCart.productDetailDto.id)" data-view-id="cart_main_quantity.decrease"
+                                                            data-view-index="4c68a586-e7fa-11ed-8b02-2ecced684e65"
+                                                            class="qty-decrease ">
+                                                            <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/decrease.svg"
+                                                                alt="decrease">
+                                                        </span>
+                                                        <input type="tel" class="qty-input" [value]="productCart.quantity">
+                                                        <span (click)="incrementValue(productCart.productDetailDto.id)" data-view-id="cart_main_quantity.increase"
+                                                            data-view-index="4c68a586-e7fa-11ed-8b02-2ecced684e65"
+                                                            class="qty-increase ">
+                                                            <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/increase.svg"
+                                                                alt="increase">
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <span class="product__final-prices">
+                                                    {{(productCart.quantity * (productCart.productDetailDto.price)).toLocaleString().replaceAll(",",
+                                                        ".")}} ₫
+                                                </span>
+                                            </div>
+                                            <div class="col-5" (click)="onRemove(productCart.productDetailDto.id)">
+                                                <span class="product__delete" data-view-id="cart_main_remove.product"
+                                                    data-view-index="4c68a586-e7fa-11ed-8b02-2ecced684e65">
+                                                    <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg"
+                                                        alt="deleted">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="styles__Right-sc-1mncg38-3 eEhtFa">
+            <div class="right-inner style-W6zO6" id="style-W6zO6">
+                
+                <div class="styles__StyledPriceSummary-sc-12mfsgy-0 iRKLRb">
+                    <ul class="prices__items">
+                        <li class="prices__item">
+                            <span class="prices__text">
+                                Tạm tính
+                            </span>
+                            <span class="prices__value">
+                                {{totalAmount.toLocaleString().replaceAll(",",
+                            ".")}} <u>đ</u>
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="prices__items">
+                        <li class="prices__item">
+                            <span class="prices__text">
+                                Giảm giá
+                            </span>
+                            <span class="prices__value">
+                                {{discount.toLocaleString().replaceAll(",",
+                            ".")}} <u>đ</u>
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="prices__total">
+                        <span class="prices__text">
+                            Tổng tiền
+                        </span>
+                        <div class="prices__content">
+                            <span class="prices__value prices__value--final">
+                                {{(totalAmount - discount).toLocaleString().replaceAll(",",
+                            ".")}} <u>đ</u>
+                            </span>
+                            <span class="prices__value--noted">
+                                (Đã bao gồm VAT nếu có)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <button [disabled]="listProductToPayment.length <= 0" [routerLink]="['/payment']" class="styles__StyledButton-sc-hokrdw-0 bsEPkA">
+                    Mua Hàng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

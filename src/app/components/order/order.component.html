@@ -1,0 +1,292 @@
+<div class="Container-sc-itwfbd-0 hfMLFx snipcss-Apoq8 pt-4">
+    <div class="Account__StyledAccountLayout-sc-1d5h8iz-0 dLDnti">
+        <app-sidebar-account [activeTag]="'order'"></app-sidebar-account>
+        <div class="Account__StyledAccountLayoutInner-sc-1d5h8iz-1 jXurFV snipcss-AcVpU">
+            <div class="styles__StyledListOrderPage-sc-e27b7w-0 hmhcMC">
+                <div class="heading">
+                    Đơn hàng của tôi
+                </div>
+                <div class="styles__StyledTab-sc-e27b7w-2 krSXKE">
+                    <a (click)="allOrder()" [ngClass]="orderStatus == 'ALL' ? 'kJvPK' : 'czMhB'" width="20%"
+                        class="styles__Tab-sc-e27b7w-3">
+                        Tất cả đơn
+                    </a>
+                    <a (click)="pendingOrder()" [ngClass]="orderStatus == 'PENDING' ? 'kJvPK' : 'czMhB'" width="20%"
+                        class="styles__Tab-sc-e27b7w-3">
+                        Đang xử lý
+                    </a>
+                    <a (click)="shippingOrder()" [ngClass]="orderStatus == 'SHIPPING' ? 'kJvPK' : 'czMhB'" width="20%"
+                        class="styles__Tab-sc-e27b7w-3">
+                        Đang vận chuyển
+                    </a>
+                    <a (click)="doneOrder()" [ngClass]="orderStatus == 'DONE' ? 'kJvPK' : 'czMhB'" width="20%"
+                        class="styles__Tab-sc-e27b7w-3">
+                        Đã giao
+                    </a>
+                    <a (click)="canceledOrder()" [ngClass]="orderStatus == 'CANCELED' ? 'kJvPK' : 'czMhB'" width="20%"
+                        class="styles__Tab-sc-e27b7w-3">
+                        Đã huỷ
+                    </a>
+                </div>
+                <div class="styles__StyledInput-sc-e27b7w-4 dJmBHv">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" color="#808089"
+                        class="icon-left" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"
+                        style="color: rgb(128, 128, 137);">
+                        <path
+                            d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+                        </path>
+                    </svg>
+                    <input name="search" placeholder="Tìm đơn hàng theo Mã đơn hàng, Nhà bán hoặc Tên sản phẩm"
+                        type="search" class="input with-icon-left">
+                    <div class="search-right">
+                        Tìm đơn hàng
+                    </div>
+                </div>
+                <div>
+                    <div class="react-swipe-container carousel style-wBY1g" id="style-wBY1g">
+                        <div id="style-lwQYL" class="style-lwQYL">
+                            <div data-index="0" id="style-c7ff2" class="style-c7ff2">
+                                <div>
+                                    <div class="infinite-scroll-component  style-kMYFm" id="style-kMYFm">
+                                        <div *ngIf="billListDataFilter.length <= 0"
+                                            class="styles__EmptyCpn-sc-1twarw-0 hggZkm snipcss-5oQsg">
+                                            <img
+                                                src="https://frontend.tikicdn.com/_desktop-next/static/img/account/empty-order.png">
+                                            <p>
+                                                Chưa có đơn hàng
+                                            </p>
+                                        </div>
+
+                                        <div *ngFor="let bill of billListDataFilter"
+                                            class="styles__StyledOrder-sc-1vf2n1c-0 ekuyi" [routerLink]="['/order/detail', bill.id]">
+                                            <div [ngClass]="bill.status == 'CANCELED' ? 'eUsvUb' : 'hBsvqt'"
+                                                color="#808089" class="styles__OrderHeader-sc-1vf2n1c-1">
+                                                <span class="main-status">
+                                                    {{bill.status == 'DONE' ? 'Giao hàng thành công' :
+                                                    bill.status == 'SHIPPING' ? 'Đang vận chuyển' :
+                                                    bill.status == 'CANCELED' ? 'Đã hủy' : 'Đang xử lý'}}
+                                                </span>
+                                            </div>
+                                            <div class="styles__StyledOrderInfo-sc-1upbws9-0 hBZYMQ">
+                                                <div>
+                                                    <div *ngFor="let productBill of bill.productBills" class="product">
+                                                        <div class="detail">
+                                                            <div [style.backgroundImage]="'url(' + productBill.productDetail.productDto.images[0].imageUrl + ')'"
+                                                                class="product-img style-q8Dd3" id="style-q8Dd3">
+                                                                <span class="quantity">
+                                                                    x{{productBill.quantity}}
+                                                                </span>
+                                                            </div>
+                                                            <div class="product-info">
+                                                                <p class="product-name">
+                                                                    {{productBill.productDetail.productDto.name.length
+                                                                    <= 130 ? productBill.productDetail.productDto.name :
+                                                                        productBill.productDetail.productDto.name.substring(0,
+                                                                        130) + " ..." }} </p>
+                                                                        <div class="store">
+                                                                            <span>
+                                                                                FASHION
+                                                                            </span>
+                                                                        </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="price">
+                                                            <span>
+                                                                {{(productBill.productDetail.price-productBill.productDetail.discount.value).toLocaleString().replaceAll(",",
+                                                                ".")}} ₫
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="styles__OrderFooter-sc-1vf2n1c-2 hBVEFq">
+                                                <div class="total-money">
+                                                    <div class="title">
+                                                        Tổng tiền:
+                                                    </div>
+                                                    <div class="total">
+                                                        {{bill.totalAmount.toLocaleString().replaceAll(",",
+                                                        ".")}} ₫
+                                                    </div>
+                                                </div>
+                                                <div class="button-group">
+                                                    <div>
+                                                        Mua lại
+                                                    </div>
+                                                    <div>
+                                                        Xem chi tiết
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-index="1" id="style-e1KWV" class="style-e1KWV">
+                                <div>
+                                    <div class="infinite-scroll-component  style-ffyMw" id="style-ffyMw">
+                                        <div class="styles__Container-sc-yeh6d6-0 YyCDP">
+                                            <div class="Shape__Container-sc-4y9477-0 aiTig style-e8oPx"
+                                                id="style-e8oPx">
+                                            </div>
+                                            <div class="middle">
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-nMeki"
+                                                    id="style-nMeki">
+                                                </div>
+                                                <div class="middle__right">
+                                                    <div class="Shape__Container-sc-4y9477-0 aiTig style-4n88D"
+                                                        id="style-4n88D">
+                                                    </div>
+                                                    <div class="Shape__Container-sc-4y9477-0 aiTig style-6hHdO"
+                                                        id="style-6hHdO">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bottom">
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-o7vhZ"
+                                                    id="style-o7vhZ">
+                                                </div>
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-SPBeJ"
+                                                    id="style-SPBeJ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-index="2" id="style-ylUAn" class="style-ylUAn">
+                                <div>
+                                    <div class="infinite-scroll-component  style-9tECr" id="style-9tECr">
+                                        <div class="styles__Container-sc-yeh6d6-0 YyCDP">
+                                            <div class="Shape__Container-sc-4y9477-0 aiTig style-FQBd3"
+                                                id="style-FQBd3">
+                                            </div>
+                                            <div class="middle">
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-YShds"
+                                                    id="style-YShds">
+                                                </div>
+                                                <div class="middle__right">
+                                                    <div class="Shape__Container-sc-4y9477-0 aiTig style-NcbjU"
+                                                        id="style-NcbjU">
+                                                    </div>
+                                                    <div class="Shape__Container-sc-4y9477-0 aiTig style-6ECoR"
+                                                        id="style-6ECoR">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bottom">
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-MFD9R"
+                                                    id="style-MFD9R">
+                                                </div>
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-E49hf"
+                                                    id="style-E49hf">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-index="3" id="style-cq6Sj" class="style-cq6Sj">
+                                <div>
+                                    <div class="infinite-scroll-component  style-UfJk2" id="style-UfJk2">
+                                        <div class="styles__Container-sc-yeh6d6-0 YyCDP">
+                                            <div class="Shape__Container-sc-4y9477-0 aiTig style-zIJv1"
+                                                id="style-zIJv1">
+                                            </div>
+                                            <div class="middle">
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-v8Ugc"
+                                                    id="style-v8Ugc">
+                                                </div>
+                                                <div class="middle__right">
+                                                    <div class="Shape__Container-sc-4y9477-0 aiTig style-pBzN9"
+                                                        id="style-pBzN9">
+                                                    </div>
+                                                    <div class="Shape__Container-sc-4y9477-0 aiTig style-moZp7"
+                                                        id="style-moZp7">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bottom">
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-kYsn4"
+                                                    id="style-kYsn4">
+                                                </div>
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-NiKZy"
+                                                    id="style-NiKZy">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-index="4" id="style-C366G" class="style-C366G">
+                                <div>
+                                    <div class="infinite-scroll-component  style-qoKw6" id="style-qoKw6">
+                                        <div class="styles__Container-sc-yeh6d6-0 YyCDP">
+                                            <div class="Shape__Container-sc-4y9477-0 aiTig style-gmBxc"
+                                                id="style-gmBxc">
+                                            </div>
+                                            <div class="middle">
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-fI1pV"
+                                                    id="style-fI1pV">
+                                                </div>
+                                                <div class="middle__right">
+                                                    <div class="Shape__Container-sc-4y9477-0 aiTig style-vSfUJ"
+                                                        id="style-vSfUJ">
+                                                    </div>
+                                                    <div class="Shape__Container-sc-4y9477-0 aiTig style-97X1v"
+                                                        id="style-97X1v">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bottom">
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-H1KLa"
+                                                    id="style-H1KLa">
+                                                </div>
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-ZEpxT"
+                                                    id="style-ZEpxT">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-index="5" id="style-opnRA" class="style-opnRA">
+                                <div>
+                                    <div class="infinite-scroll-component  style-zKNlH" id="style-zKNlH">
+                                        <div class="styles__Container-sc-yeh6d6-0 YyCDP">
+                                            <div class="Shape__Container-sc-4y9477-0 aiTig style-pfjKY"
+                                                id="style-pfjKY">
+                                            </div>
+                                            <div class="middle">
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-q7kkB"
+                                                    id="style-q7kkB">
+                                                </div>
+                                                <div class="middle__right">
+                                                    <div class="Shape__Container-sc-4y9477-0 aiTig style-VsSIV"
+                                                        id="style-VsSIV">
+                                                    </div>
+                                                    <div class="Shape__Container-sc-4y9477-0 aiTig style-MvBJk"
+                                                        id="style-MvBJk">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bottom">
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-o7GYd"
+                                                    id="style-o7GYd">
+                                                </div>
+                                                <div class="Shape__Container-sc-4y9477-0 aiTig style-4bWBL"
+                                                    id="style-4bWBL">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

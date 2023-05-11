@@ -1,0 +1,174 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+* {
+    box-sizing: border-box;
+}
+
+.dLDnti {
+    display: flex;
+    width: 100%;
+    margin: 0px auto 20px;
+    flex-wrap: wrap;
+}
+
+.hfMLFx {
+    width: 1270px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+main {
+    display: block;
+}
+
+body {
+    margin: 0px;
+    overflow-x: hidden;
+    --sub-sidebar-width: 0px;
+    width: calc(100vw - var(--sub-sidebar-width) - 17px) !important;
+    min-width: calc(100vw - var(--sub-sidebar-width) - 17px) !important;
+    box-sizing: border-box !important;
+    margin-left: var(--sub-sidebar-width) !important;
+    margin-right: 0px !important;
+    float: right !important;
+}
+
+html {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    background-color: rgb(245, 245, 250);
+    line-height: 1.15;
+    text-size-adjust: 100%;
+    --sub-sidebar-width: 0px;
+}
+
+.jXurFV {
+    flex: 1 1 0%;
+}
+
+*,
+:before,
+:after {
+    box-sizing: border-box;
+}
+
+.ilGfdX .heading {
+    font-size: 19px;
+    line-height: 21px;
+    font-weight: 300;
+    margin: 20px 0px 15px;
+}
+
+.ilGfdX .item {
+    background-color: rgb(255, 255, 255);
+    padding: 17px;
+    border-radius: 4px;
+    margin: 0px 0px 10px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    font-size: 13px;
+    line-height: 19px;
+}
+
+.ilGfdX .item:last-child {
+    margin: 0px;
+}
+
+a {
+    background-color: transparent;
+    color: rgb(11, 116, 229);
+    text-decoration: none;
+}
+
+.ilGfdX .new a {
+    background-color: rgb(255, 255, 255);
+    font-size: 15px;
+    height: 60px;
+    border: 1px dashed rgb(216, 216, 216);
+    margin: 0px 0px 10px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+a:hover {
+    opacity: 0.95;
+}
+
+.ilGfdX .new svg {
+    color: rgb(120, 120, 120);
+    font-size: 28px;
+    margin: 0px 20px;
+}
+
+.ilGfdX .item .name {
+    text-transform: uppercase;
+    margin: 0px 0px 10px;
+}
+
+.ilGfdX .item .address {
+    margin: 0px 0px 5px;
+}
+
+.ilGfdX .item .edit {
+    font-size: 14px;
+    color: rgb(27, 168, 255);
+    display: inline-block;
+    padding: 6px 12px;
+}
+
+.ilGfdX .item .name>span {
+    font-size: 12px;
+    margin: 0px 0px 0px 15px;
+    display: inline-block;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(38, 188, 78);
+    text-transform: none;
+}
+
+.ilGfdX .item .address span {
+    color: rgb(120, 120, 120);
+}
+
+.ilGfdX .item .phone span {
+    color: rgb(120, 120, 120);
+}
+
+.ilGfdX .item .name>span svg {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+}
+
+.ilGfdX .item .name>span span {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px 0px 0px 5px;
+}
+
+button {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0px;
+    overflow: visible;
+    text-transform: none;
+    appearance: button;
+}
+
+.delete {
+    font-size: 14px;
+    color: rgb(255, 66, 78);
+    border: 0px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    outline: 0px;
+}

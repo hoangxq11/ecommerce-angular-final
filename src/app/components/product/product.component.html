@@ -1,0 +1,1681 @@
+<div class="main bg-light pt-3 pb-3">
+    <div class="container">
+        <!-- Product--detail  -->
+        <h6 class="mb-3">CHI TIẾT SẢN PHẨM</h6>
+        <div class="bg-white pt-4 pb-4 p-3 m-1 text-center row">
+            <div class="col-md-4 p-0">
+
+                <div id="carousel-example-1z" class="carousel slide carousel-fade col-md-8 pr-0" data-ride="carousel">
+
+                    <!--Slides-->
+                    <div class="carousel-inner" style="width: 280px;" role="listbox">
+                        <div *ngFor="let image of listProductDetailRes.data[0].productDto.images; let i=index"
+                            class="carousel-item" [class]="i == 0 ? 'active': ''">
+                            <img class="w-100" style="height: 380px;" [src]="image.imageUrl" alt="">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev"
+                        style="left: 15px; background: #c7c7c7;border-bottom-right-radius: 5px; border-top-right-radius: 5px; width: 10%;top: 150px;height: 60px">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next"
+                        style="right: -57px; background: #c7c7c7; border-bottom-right-radius: 5px; border-top-right-radius: 5px; width: 10%;top: 150px;height: 60px">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <br>
+
+            </div>
+
+            <div class="col-md-7 pl-4 text-left">
+                <h5>{{listProductDetailRes.data[0].productDto.name}}</h5>
+                <div class="rate row m-1 mt-3 mb-2 align-items-center">
+                    <span class="fa fa-star checked text-warning small"></span>
+                    <span class="fa fa-star checked text-warning small"></span>
+                    <span class="fa fa-star checked text-warning small"></span>
+                    <span class="fa fa-star text-secondary small"></span>
+                    <span class="fa fa-star text-secondary small"></span>
+                    <small class="ml-3">( Xem 46 đánh giá )</small>
+                </div>
+                <div class="price bg-light p-2">
+                    <div class="row m-1 align-items-center">
+                        <h4 *ngIf="listProductDetailRes.data[0].discount != null">{{(listProductDetailRes.data[0].price-listProductDetailRes.data[0].discount.value).toLocaleString().replaceAll(",",
+                            ".")}} <u>đ</u></h4>
+                            <h4 *ngIf="listProductDetailRes.data[0].discount == null">{{(listProductDetailRes.data[0].price).toLocaleString().replaceAll(",",
+                                ".")}} <u>đ</u></h4>
+                        <span *ngIf="listProductDetailRes.data[0].discount != null" class="badge badge-pill badge-danger ml-3 mr-3">-
+                            {{(listProductDetailRes.data[0].discount.value).toLocaleString().replaceAll(",",
+                            ".")}} đ<br>≈
+                            {{(100*listProductDetailRes.data[0].discount.value/listProductDetailRes.data[0].price)
+                            | number : '1.0-0'}}%</span>
+                        <s *ngIf="listProductDetailRes.data[0].discount != null">{{listProductDetailRes.data[0].price.toLocaleString().replaceAll(",",
+                            ".")}} <u>đ</u> </s>
+                    </div>
+                </div>
+
+                <div class="text-danger">
+                    <img class="w-25" src="http://techshop-ecommerce.surge.sh/static/media/policy-image.62c1167a.png"
+                        alt="">
+                </div>
+                <br>
+
+                <div *ngIf="colors.length > 0">
+                    <span>
+                        Chọn màu: <div class="text-success" [textContent]="color.name"></div>
+                    </span>
+                    <div class="styles__OptionListWrapper-sc-ultl4k-2 SrIPG snipcss-CnWYv">
+                        <button (click)="onChangeColor(item.id)" *ngFor="let item of colors"
+                            data-view-id="pdp_main_select_configuration_item" data-view-index="0"
+                            class="styles__OptionButton-sc-3p38uy-0 fkxNYt"
+                            [ngClass]="color.id == item.id ? 'active' : ''">
+                            {{item.name}}
+                            <img class="selected-indicator"
+                                src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/selected-variant-indicator.svg"
+                                alt="Selected">
+                        </button>
+                    </div>
+                </div>
+                <br>
+
+                <div *ngIf="sizes.length > 0">
+                    <span>
+                        Chọn size: <div class="text-success" [textContent]="size.name"></div>
+                    </span>
+                    <div class="styles__OptionListWrapper-sc-ultl4k-2 SrIPG snipcss-CnWYv">
+                        <button (click)="onChangeSize(item.id)" *ngFor="let item of sizes"
+                            data-view-id="pdp_main_select_configuration_item" data-view-index="0"
+                            class="styles__OptionButton-sc-3p38uy-0 fkxNYt"
+                            [ngClass]="size.id == item.id ? 'active' : ''">
+                            {{item.name}}
+                            <img class="selected-indicator"
+                                src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/selected-variant-indicator.svg"
+                                alt="Selected">
+                        </button>
+                    </div>
+                </div>
+                <br>
+
+                Số lượng:
+                <div class="input-group col-md-4 m-2">
+                    <!-- button increment -->
+                    <div class="input-group-prepend">
+                        <button (click)="decrementValue()" class="btn btn-success btn-sm" type="submit"><i
+                                class="fas fa-minus"></i></button>
+                    </div>
+                    <input type="text" class="form-control text-center" min="1" [(ngModel)]="quantity"
+                        style="height:31px">
+
+                    <!-- button decrement -->
+                    <div class="input-group-append">
+                        <button (click)="incrementValue()" class="btn btn-success btn-sm" type="submit"><i
+                                class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <button (click)="authService.isLoggedIn() ? addToCart() : openLoginModal()" type="button" name="" id=""
+                    class="btn btn-success btn-md btn-block mt-5">Thêm vào giỏ
+                    hàng</button>
+
+            </div>
+
+        </div>
+
+        <!-- Mô tả sản phẩm -->
+        <h6 class="mt-4 mb-2 m-1">MÔ TẢ SẢN PHẨM</h6>
+        <div class="row bg-white pt-4 pb-4 p-3 m-1 description"
+            [innerHTML]="listProductDetailRes.data[0].productDto.description">
+        </div>
+
+        <div class="customer-reviews__heading snipcss-ogH1N">
+            Đánh Giá - Nhận Xét Từ Khách Hàng
+        </div>
+
+        <div class="customer-reviews__inner snipcss-HJvQw pt-4" style="background-color: white;">
+            <div class="customer-reviews__top mb-4">
+                <div class="style__StyledReviewRating-sc-10ol6xi-1 gvczEB review-rating">
+                    <div class="review-rating__inner">
+                        <div class="review-rating__summary">
+                            <div class="review-rating__point">
+                                4.6
+                            </div>
+                            <div class="review-rating__stars">
+                                <div class="Stars__StyledStars-sc-1g6jwue-0 bkVtVK">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 3L14.6198 8.81653L21 9.49342L16.239 13.7651L17.5623 20L12 16.8235L6.43769 20L7.761 13.7651L3 9.49342L9.38015 8.81653L12 3Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M12 2L14.9109 8.50806L22 9.26543L16.71 14.045L18.1803 21.0211L12 17.467L5.81966 21.0211L7.29 14.045L2 9.26543L9.08906 8.50806L12 2ZM12 4.29426L9.72422 9.38228L4.18197 9.97439L8.31771 13.7111L7.16819 19.165L12 16.3864L16.8318 19.165L15.6823 13.7111L19.818 9.97439L14.2758 9.38228L12 4.29426Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 3L14.6198 8.81653L21 9.49342L16.239 13.7651L17.5623 20L12 16.8235L6.43769 20L7.761 13.7651L3 9.49342L9.38015 8.81653L12 3Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M12 2L14.9109 8.50806L22 9.26543L16.71 14.045L18.1803 21.0211L12 17.467L5.81966 21.0211L7.29 14.045L2 9.26543L9.08906 8.50806L12 2ZM12 4.29426L9.72422 9.38228L4.18197 9.97439L8.31771 13.7111L7.16819 19.165L12 16.3864L16.8318 19.165L15.6823 13.7111L19.818 9.97439L14.2758 9.38228L12 4.29426Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 3L14.6198 8.81653L21 9.49342L16.239 13.7651L17.5623 20L12 16.8235L6.43769 20L7.761 13.7651L3 9.49342L9.38015 8.81653L12 3Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M12 2L14.9109 8.50806L22 9.26543L16.71 14.045L18.1803 21.0211L12 17.467L5.81966 21.0211L7.29 14.045L2 9.26543L9.08906 8.50806L12 2ZM12 4.29426L9.72422 9.38228L4.18197 9.97439L8.31771 13.7111L7.16819 19.165L12 16.3864L16.8318 19.165L15.6823 13.7111L19.818 9.97439L14.2758 9.38228L12 4.29426Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 3L14.6198 8.81653L21 9.49342L16.239 13.7651L17.5623 20L12 16.8235L6.43769 20L7.761 13.7651L3 9.49342L9.38015 8.81653L12 3Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M12 2L14.9109 8.50806L22 9.26543L16.71 14.045L18.1803 21.0211L12 17.467L5.81966 21.0211L7.29 14.045L2 9.26543L9.08906 8.50806L12 2ZM12 4.29426L9.72422 9.38228L4.18197 9.97439L8.31771 13.7111L7.16819 19.165L12 16.3864L16.8318 19.165L15.6823 13.7111L19.818 9.97439L14.2758 9.38228L12 4.29426Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 3L14.6198 8.81653L21 9.49342L16.239 13.7651L17.5623 20L12 16.8235L6.43769 20L7.761 13.7651L3 9.49342L9.38015 8.81653L12 3Z"
+                                                stroke="#FFA142" fill="none">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M12 2L14.9109 8.50806L22 9.26543L16.71 14.045L18.1803 21.0211L12 17.467L5.81966 21.0211L7.29 14.045L2 9.26543L9.08906 8.50806L12 2ZM12 4.29426L9.72422 9.38228L4.18197 9.97439L8.31771 13.7111L7.16819 19.165L12 16.3864L16.8318 19.165L15.6823 13.7111L19.818 9.97439L14.2758 9.38228L12 4.29426Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <div id="style-XFv6H" class="style-XFv6H">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 3L14.6198 8.81653L21 9.49342L16.239 13.7651L17.5623 20L12 16.8235L6.43769 20L7.761 13.7651L3 9.49342L9.38015 8.81653L12 3Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M12 2L14.9109 8.50806L22 9.26543L16.71 14.045L18.1803 21.0211L12 17.467L5.81966 21.0211L7.29 14.045L2 9.26543L9.08906 8.50806L12 2ZM12 4.29426L9.72422 9.38228L4.18197 9.97439L8.31771 13.7111L7.16819 19.165L12 16.3864L16.8318 19.165L15.6823 13.7111L19.818 9.97439L14.2758 9.38228L12 4.29426Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 3L14.6198 8.81653L21 9.49342L16.239 13.7651L17.5623 20L12 16.8235L6.43769 20L7.761 13.7651L3 9.49342L9.38015 8.81653L12 3Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M12 2L14.9109 8.50806L22 9.26543L16.71 14.045L18.1803 21.0211L12 17.467L5.81966 21.0211L7.29 14.045L2 9.26543L9.08906 8.50806L12 2ZM12 4.29426L9.72422 9.38228L4.18197 9.97439L8.31771 13.7111L7.16819 19.165L12 16.3864L16.8318 19.165L15.6823 13.7111L19.818 9.97439L14.2758 9.38228L12 4.29426Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 3L14.6198 8.81653L21 9.49342L16.239 13.7651L17.5623 20L12 16.8235L6.43769 20L7.761 13.7651L3 9.49342L9.38015 8.81653L12 3Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M12 2L14.9109 8.50806L22 9.26543L16.71 14.045L18.1803 21.0211L12 17.467L5.81966 21.0211L7.29 14.045L2 9.26543L9.08906 8.50806L12 2ZM12 4.29426L9.72422 9.38228L4.18197 9.97439L8.31771 13.7111L7.16819 19.165L12 16.3864L16.8318 19.165L15.6823 13.7111L19.818 9.97439L14.2758 9.38228L12 4.29426Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 3L14.6198 8.81653L21 9.49342L16.239 13.7651L17.5623 20L12 16.8235L6.43769 20L7.761 13.7651L3 9.49342L9.38015 8.81653L12 3Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M12 2L14.9109 8.50806L22 9.26543L16.71 14.045L18.1803 21.0211L12 17.467L5.81966 21.0211L7.29 14.045L2 9.26543L9.08906 8.50806L12 2ZM12 4.29426L9.72422 9.38228L4.18197 9.97439L8.31771 13.7111L7.16819 19.165L12 16.3864L16.8318 19.165L15.6823 13.7111L19.818 9.97439L14.2758 9.38228L12 4.29426Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 3L14.6198 8.81653L21 9.49342L16.239 13.7651L17.5623 20L12 16.8235L6.43769 20L7.761 13.7651L3 9.49342L9.38015 8.81653L12 3Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M12 2L14.9109 8.50806L22 9.26543L16.71 14.045L18.1803 21.0211L12 17.467L5.81966 21.0211L7.29 14.045L2 9.26543L9.08906 8.50806L12 2ZM12 4.29426L9.72422 9.38228L4.18197 9.97439L8.31771 13.7111L7.16819 19.165L12 16.3864L16.8318 19.165L15.6823 13.7111L19.818 9.97439L14.2758 9.38228L12 4.29426Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="review-rating__total">
+                                    863 nhận xét
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-rating__detail">
+                            <div class="review-rating__level">
+                                <div class="Stars__StyledStars-sc-1g6jwue-0 bkVtVK">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <div id="style-r4hWx" class="style-r4hWx">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="style__StyledProcessBar-sc-10ol6xi-2 irgthR">
+                                    <div id="style-tKL1O" class="style-tKL1O">
+                                    </div>
+                                </div>
+                                <div class="review-rating__number">
+                                    659
+                                </div>
+                            </div>
+                            <div class="review-rating__level">
+                                <div class="Stars__StyledStars-sc-1g6jwue-0 bkVtVK">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#DDDDE3" fill="#DDDDE3">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#DDDDE3">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <div id="style-ajRan" class="style-ajRan">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="style__StyledProcessBar-sc-10ol6xi-2 irgthR">
+                                    <div id="style-9WGpF" class="style-9WGpF">
+                                    </div>
+                                </div>
+                                <div class="review-rating__number">
+                                    146
+                                </div>
+                            </div>
+                            <div class="review-rating__level">
+                                <div class="Stars__StyledStars-sc-1g6jwue-0 bkVtVK">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#DDDDE3" fill="#DDDDE3">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#DDDDE3">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#DDDDE3" fill="#DDDDE3">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#DDDDE3">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <div id="style-B2Fdm" class="style-B2Fdm">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="style__StyledProcessBar-sc-10ol6xi-2 irgthR">
+                                    <div id="style-WjS3i" class="style-WjS3i">
+                                    </div>
+                                </div>
+                                <div class="review-rating__number">
+                                    17
+                                </div>
+                            </div>
+                            <div class="review-rating__level">
+                                <div class="Stars__StyledStars-sc-1g6jwue-0 bkVtVK">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#DDDDE3" fill="#DDDDE3">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#DDDDE3">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#DDDDE3" fill="#DDDDE3">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#DDDDE3">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#DDDDE3" fill="#DDDDE3">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#DDDDE3">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <div id="style-JjYAB" class="style-JjYAB">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="style__StyledProcessBar-sc-10ol6xi-2 irgthR">
+                                    <div id="style-5hX5D" class="style-5hX5D">
+                                    </div>
+                                </div>
+                                <div class="review-rating__number">
+                                    15
+                                </div>
+                            </div>
+                            <div class="review-rating__level">
+                                <div class="Stars__StyledStars-sc-1g6jwue-0 bkVtVK">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#FFA142" fill="#FFD52E">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#FFA142">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#DDDDE3" fill="#DDDDE3">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#DDDDE3">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#DDDDE3" fill="#DDDDE3">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#DDDDE3">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#DDDDE3" fill="#DDDDE3">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#DDDDE3">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 14 14">
+                                            <path
+                                                d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                stroke="#DDDDE3" fill="#DDDDE3">
+                                            </path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                fill="#DDDDE3">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <div id="style-cS4c3" class="style-cS4c3">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14">
+                                                <path
+                                                    d="M7 1.75L8.52824 5.14298L12.25 5.53783L9.47275 8.02966L10.2447 11.6667L7 9.81372L3.75532 11.6667L4.52725 8.02966L1.75 5.53783L5.47176 5.14298L7 1.75Z"
+                                                    stroke="#FFA142" fill="#FFD52E">
+                                                </path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M6.99996 1.16675L8.69801 4.96312L12.8333 5.40491L9.74746 8.193L10.6052 12.2624L6.99996 10.1892L3.39476 12.2624L4.25246 8.193L1.16663 5.40491L5.30191 4.96312L6.99996 1.16675ZM6.99996 2.50507L5.67242 5.47308L2.43944 5.81848L4.85196 7.99821L4.18141 11.1797L6.99996 9.55882L9.81851 11.1797L9.14796 7.99821L11.5605 5.81848L8.3275 5.47308L6.99996 2.50507Z"
+                                                    fill="#FFA142">
+                                                </path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="style__StyledProcessBar-sc-10ol6xi-2 irgthR">
+                                    <div id="style-5fgE5" class="style-5fgE5">
+                                    </div>
+                                </div>
+                                <div class="review-rating__number">
+                                    26
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-left: 10%;">
+                    <div class="flex items-baseline justify-between">
+                    </div>
+                    <div class="style__StyledFilter-sc-10ol6xi-4 emqSjh filter-review">
+                        <div class="filter-review__label">
+                            Lọc xem theo :
+                        </div>
+                        <div class="filter-review__inner snipcss0-4-187-189 snipcss-zhrMH">
+
+                            <div data-view-id="pdp_review_filter_item" data-view-index="3"
+                                class="filter-review__item snipcss0-5-189-202">
+                                <span class="filter-review__check snipcss0-6-202-203">
+                                    <img src="https://salt.tikicdn.com/ts/upload/68/59/32/9589577c7e094d3dccbe57dd0af2bbb8.png"
+                                        class="snipcss0-7-203-204">
+                                </span>
+                                <span class="filter-review__text snipcss0-6-202-205">
+                                    5
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    class="filter-review__star snipcss0-6-212-216">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div data-view-id="pdp_review_filter_item" data-view-index="4"
+                                class="filter-review__item snipcss0-5-189-207">
+                                <span class="filter-review__check snipcss0-6-207-208">
+                                    <img src="https://salt.tikicdn.com/ts/upload/68/59/32/9589577c7e094d3dccbe57dd0af2bbb8.png"
+                                        class="snipcss0-7-208-209">
+                                </span>
+                                <span class="filter-review__text snipcss0-6-207-210">
+                                    4
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    class="filter-review__star snipcss0-6-212-216">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div data-view-id="pdp_review_filter_item" data-view-index="5"
+                                class="filter-review__item  filter-review__item--active">
+                                <span class="filter-review__check snipcss0-6-212-213">
+                                    <img src="https://salt.tikicdn.com/ts/upload/68/59/32/9589577c7e094d3dccbe57dd0af2bbb8.png"
+                                        class="snipcss0-7-213-214">
+                                </span>
+                                <span class="filter-review__text snipcss0-6-212-215">
+                                    3
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    class="filter-review__star snipcss0-6-212-216">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div data-view-id="pdp_review_filter_item" data-view-index="6"
+                                class="filter-review__item snipcss0-5-189-217">
+                                <span class="filter-review__check snipcss0-6-217-218">
+                                    <img src="https://salt.tikicdn.com/ts/upload/68/59/32/9589577c7e094d3dccbe57dd0af2bbb8.png"
+                                        class="snipcss0-7-218-219">
+                                </span>
+                                <span class="filter-review__text snipcss0-6-217-220">
+                                    2
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    class="filter-review__star snipcss0-6-212-216">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div data-view-id="pdp_review_filter_item" data-view-index="7"
+                                class="filter-review__item snipcss0-5-189-222">
+                                <span class="filter-review__check snipcss0-6-222-223">
+                                    <img src="https://salt.tikicdn.com/ts/upload/68/59/32/9589577c7e094d3dccbe57dd0af2bbb8.png"
+                                        class="snipcss0-7-223-224">
+                                </span>
+                                <span class="filter-review__text snipcss0-6-222-225">
+                                    1
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    class="filter-review__star snipcss0-6-212-216">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div>
+            </div>
+            <div class="style__StyledComment-sc-10ol6xi-5 dOzoKz review-comment">
+                <div class="review-comment__user">
+                    <div class="review-comment__user-inner">
+                        <div class="review-comment__user-avatar">
+                            <div class="Avatar__StyledAvatar-sc-13o0emo-0 lfujih has-character style-ZrBN7"
+                                id="style-ZrBN7">
+                                <img src="https://salt.tikicdn.com/cache/512x512/ts/avatar/13/10/ff/669de7165f716eee48c2948d133bf752.png"
+                                    alt="Đoàn Văn Hương ">
+                                <span>
+                                    H
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="review-comment__user-name">
+                                Đoàn Văn Hương
+                            </div>
+                            <div class="review-comment__user-date">
+                                Đã tham gia 4 năm
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-comment__user-info">
+                        <img src="https://salt.tikicdn.com/ts/upload/c6/67/f1/444fc9e1869b5d4398cdec3682af7f14.png"
+                            alt="review-count">
+                        Đã viết:
+                        <span>
+                            21 Đánh giá
+                        </span>
+                    </div>
+                    <div class="review-comment__user-info">
+                        <img src="https://salt.tikicdn.com/ts/upload/cc/86/cd/1d5ac6d4e00abbf6aa4e4636489c9d80.png"
+                            alt="liked-count">
+                        Đã nhận:
+                        <span>
+                            9 Lượt cảm ơn
+                        </span>
+                    </div>
+                </div>
+                <div id="style-8k8YN" class="style-8k8YN">
+                    <div class="review-comment__rating-title snipcss-HlwX3">
+                        <div class="Stars__StyledStars-sc-1g6jwue-0 bkVtVK review-comment__rating">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#DDDDE3" fill="#DDDDE3">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#DDDDE3">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#DDDDE3" fill="#DDDDE3">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#DDDDE3">
+                                    </path>
+                                </svg>
+                            </span>
+                            <div id="style-vxLWX" class="style-vxLWX">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                            stroke="#FFA142" fill="#FFD52E">
+                                        </path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                            fill="#FFA142">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                            stroke="#FFA142" fill="#FFD52E">
+                                        </path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                            fill="#FFA142">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                            stroke="#FFA142" fill="#FFD52E">
+                                        </path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                            fill="#FFA142">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                            stroke="#FFA142" fill="#FFD52E">
+                                        </path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                            fill="#FFA142">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                            stroke="#FFA142" fill="#FFD52E">
+                                        </path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                            fill="#FFA142">
+                                        </path>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="review-comment__title">
+                            Bình thường
+                        </div>
+                    </div>
+
+                    <div class="review-comment__seller-name-attributes">
+                        <div class="review-comment__seller-name">
+                            <span class="review-comment__check-icon">
+                            </span>
+                            Đã mua hàng
+                        </div>
+                    </div>
+                    <div class="review-comment__content">
+                        Áo sơ mi nhìn chung từ vải và đường may rất đẹp, ko bị lỗi.Theo bảng hướng dẫn mình lấy zize L
+                        mặc rất vừa..cảm ơn shop và Tiki,sẽ tiếp tục ung hô shop.
+                    </div>
+                    <div class="review-comment__images">
+                        <div data-view-id="pdp_product_review_view_photo" class="review-comment__image style-3Cvnh"
+                            id="style-3Cvnh">
+                        </div>
+                        <div data-view-id="pdp_product_review_view_photo" class="review-comment__image style-Ybcqm"
+                            id="style-Ybcqm">
+                        </div>
+                        <div data-view-id="pdp_product_review_view_photo" class="review-comment__image style-xo8oF"
+                            id="style-xo8oF">
+                        </div>
+                        <div data-view-id="pdp_product_review_view_photo" class="review-comment__image style-g7fbr"
+                            id="style-g7fbr">
+                        </div>
+                    </div>
+                    <div class="review-comment__created-date">
+                        <div class="review-comment__attributes">
+                            <div class="review-comment__attributes--item">
+                                <span>
+                                    Màu: xanh đen
+                                </span>
+                            </div>
+                            <div class="review-comment__attributes--item">
+                                <span>
+                                    Size: L
+                                </span>
+                            </div>
+                        </div>
+                        <span>
+                            Đánh giá vào 4 tháng trước
+                        </span>
+                        <span class="review-comment__time-line">
+                            Đã dùng 2 ngày
+                        </span>
+                    </div>
+                    <span data-view-id="pdp_product_review_like_buton" class="review-comment__thank ">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask-thumb-up-0" maskUnits="userSpaceOnUse" x="2" y="2" width="16" height="16"
+                                class="style-mYUo4">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8.125 2.5C7.84316 2.5 7.59618 2.68864 7.52202 2.96055L5.77263 9.375H3.125C2.77982 9.375 2.5 9.65482 2.5 10V16.875C2.5 17.2202 2.77982 17.5 3.125 17.5H14.0169C14.6136 17.4994 15.1905 17.2853 15.6432 16.8965C16.0958 16.5077 16.3945 15.9698 16.4852 15.38L17.1584 11.005C17.2131 10.6488 17.1903 10.2849 17.0913 9.93833C16.9923 9.59177 16.8195 9.27071 16.5848 8.99716C16.3501 8.72361 16.0591 8.50405 15.7316 8.35351C15.4041 8.20297 15.0479 8.12502 14.6875 8.125H10.625V5C10.625 4.33696 10.3616 3.70107 9.89277 3.23223C9.42393 2.76339 8.78804 2.5 8.125 2.5ZM5.625 16.25V10.625H3.75V16.25H5.625ZM6.875 10.0837L8.57908 3.83539C8.73871 3.89763 8.88539 3.99262 9.00888 4.11612C9.2433 4.35054 9.375 4.66848 9.375 5V8.75C9.375 9.09518 9.65482 9.375 10 9.375H14.6875C14.8677 9.37501 15.0458 9.41399 15.2095 9.48925C15.3732 9.56452 15.5188 9.67431 15.6361 9.81108C15.7535 9.94786 15.8398 10.1084 15.8893 10.2817C15.9388 10.4549 15.9503 10.6369 15.9229 10.815L15.2498 15.19C15.2044 15.4849 15.0551 15.7539 14.8287 15.9483C14.6024 16.1427 14.314 16.2497 14.0156 16.25H6.875V10.0837Z"
+                                    fill="#38383D">
+                                </path>
+                            </mask>
+                            <g mask="url(#mask-thumb-up-0)">
+                                <rect x="2.5" y="2.5" width="15" height="15" fill="#0B74E5">
+                                </rect>
+                            </g>
+                        </svg>
+                        <span>
+                            Hữu ích
+                        </span>
+                    </span>
+                    <span data-view-id="pdp_product_review_reply_button" class="review-comment__reply">
+                        Bình luận
+                    </span>
+                    <span data-view-id="pdp_product_review_reply_button" class="review-comment__reply">
+                        Chia sẻ
+                    </span>
+                </div>
+            </div>
+            <div class="style__StyledComment-sc-10ol6xi-5 dOzoKz review-comment">
+                <div class="review-comment__user">
+                    <div class="review-comment__user-inner">
+                        <div class="review-comment__user-avatar">
+                            <div class="Avatar__StyledAvatar-sc-13o0emo-0 lfujih has-character style-Ia7bT"
+                                id="style-Ia7bT">
+                                <img src="https://tiki.vn/assets/img/avatar.png" alt="Phạm quốc hùng">
+                                <span>
+                                    QH
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="review-comment__user-name">
+                                Phạm quốc hùng
+                            </div>
+                            <div class="review-comment__user-date">
+                                Đã tham gia 4 năm
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-comment__user-info">
+                        <img src="https://salt.tikicdn.com/ts/upload/c6/67/f1/444fc9e1869b5d4398cdec3682af7f14.png"
+                            alt="review-count">
+                        Đã viết:
+                        <span>
+                            500 Đánh giá
+                        </span>
+                    </div>
+                    <div class="review-comment__user-info">
+                        <img src="https://salt.tikicdn.com/ts/upload/cc/86/cd/1d5ac6d4e00abbf6aa4e4636489c9d80.png"
+                            alt="liked-count">
+                        Đã nhận:
+                        <span>
+                            9 Lượt cảm ơn
+                        </span>
+                    </div>
+                </div>
+                <div id="style-Jqgze" class="style-Jqgze">
+                    <div class="review-comment__rating-title">
+                        <div class="Stars__StyledStars-sc-1g6jwue-0 bkVtVK review-comment__rating">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                        stroke="#FFA142" fill="#FFD52E">
+                                    </path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                        fill="#FFA142">
+                                    </path>
+                                </svg>
+                            </span>
+                            <div id="style-7tKQV" class="style-7tKQV">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                            stroke="#FFA142" fill="#FFD52E">
+                                        </path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                            fill="#FFA142">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                            stroke="#FFA142" fill="#FFD52E">
+                                        </path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                            fill="#FFA142">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                            stroke="#FFA142" fill="#FFD52E">
+                                        </path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                            fill="#FFA142">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                            stroke="#FFA142" fill="#FFD52E">
+                                        </path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                            fill="#FFA142">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 2.5L12.1832 7.34711L17.5 7.91118L13.5325 11.4709L14.6353 16.6667L10 14.0196L5.36474 16.6667L6.4675 11.4709L2.5 7.91118L7.81679 7.34711L10 2.5Z"
+                                            stroke="#FFA142" fill="#FFD52E">
+                                        </path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.99996 1.66675L12.4257 7.09013L18.3333 7.72127L13.925 11.7042L15.1502 17.5177L9.99996 14.5559L4.84968 17.5177L6.07496 11.7042L1.66663 7.72127L7.57418 7.09013L9.99996 1.66675ZM9.99996 3.57863L8.10348 7.81865L3.48494 8.31207L6.93138 11.426L5.97345 15.9709L9.99996 13.6554L14.0265 15.9709L13.0685 11.426L16.515 8.31207L11.8964 7.81865L9.99996 3.57863Z"
+                                            fill="#FFA142">
+                                        </path>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="review-comment__title">
+                            Cực kì hài lòng
+                        </div>
+                    </div>
+                    <div class="review-comment__seller-name-attributes">
+                        <div class="review-comment__seller-name">
+                            <span class="review-comment__check-icon">
+                            </span>
+                            Đã mua hàng
+                        </div>
+                    </div>
+                    <div class="review-comment__content">
+                        đẹp nha
+                    </div>
+                    <div class="review-comment__images">
+                        <div data-view-id="pdp_product_review_view_photo" class="review-comment__image style-ENPnD"
+                            id="style-ENPnD">
+                        </div>
+                        <div data-view-id="pdp_product_review_view_photo" class="review-comment__image style-4gqHY"
+                            id="style-4gqHY">
+                        </div>
+                        <div data-view-id="pdp_product_review_view_photo" class="review-comment__image style-7WdqI"
+                            id="style-7WdqI">
+                        </div>
+                        <div data-view-id="pdp_product_review_view_photo" class="review-comment__image style-QwwCS"
+                            id="style-QwwCS">
+                        </div>
+                        <div data-view-id="pdp_product_review_view_photo" class="review-comment__image style-npBlO"
+                            id="style-npBlO">
+                        </div>
+                    </div>
+                    <div class="review-comment__created-date">
+                        <div class="review-comment__attributes">
+                            <div class="review-comment__attributes--item">
+                                <span>
+                                    Màu: XÁM ĐẬM
+                                </span>
+                            </div>
+                            <div class="review-comment__attributes--item">
+                                <span>
+                                    Size: 3XL
+                                </span>
+                            </div>
+                        </div>
+                        <span>
+                            Đánh giá vào 1 năm trước
+                        </span>
+                        <span class="review-comment__time-line">
+                            Đã dùng 11 ngày
+                        </span>
+                    </div>
+                    <span data-view-id="pdp_product_review_like_buton" class="review-comment__thank ">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask-thumb-up-0" maskUnits="userSpaceOnUse" x="2" y="2" width="16" height="16"
+                                class="style-7pwvo">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M8.125 2.5C7.84316 2.5 7.59618 2.68864 7.52202 2.96055L5.77263 9.375H3.125C2.77982 9.375 2.5 9.65482 2.5 10V16.875C2.5 17.2202 2.77982 17.5 3.125 17.5H14.0169C14.6136 17.4994 15.1905 17.2853 15.6432 16.8965C16.0958 16.5077 16.3945 15.9698 16.4852 15.38L17.1584 11.005C17.2131 10.6488 17.1903 10.2849 17.0913 9.93833C16.9923 9.59177 16.8195 9.27071 16.5848 8.99716C16.3501 8.72361 16.0591 8.50405 15.7316 8.35351C15.4041 8.20297 15.0479 8.12502 14.6875 8.125H10.625V5C10.625 4.33696 10.3616 3.70107 9.89277 3.23223C9.42393 2.76339 8.78804 2.5 8.125 2.5ZM5.625 16.25V10.625H3.75V16.25H5.625ZM6.875 10.0837L8.57908 3.83539C8.73871 3.89763 8.88539 3.99262 9.00888 4.11612C9.2433 4.35054 9.375 4.66848 9.375 5V8.75C9.375 9.09518 9.65482 9.375 10 9.375H14.6875C14.8677 9.37501 15.0458 9.41399 15.2095 9.48925C15.3732 9.56452 15.5188 9.67431 15.6361 9.81108C15.7535 9.94786 15.8398 10.1084 15.8893 10.2817C15.9388 10.4549 15.9503 10.6369 15.9229 10.815L15.2498 15.19C15.2044 15.4849 15.0551 15.7539 14.8287 15.9483C14.6024 16.1427 14.314 16.2497 14.0156 16.25H6.875V10.0837Z"
+                                    fill="#38383D">
+                                </path>
+                            </mask>
+                            <g mask="url(#mask-thumb-up-0)">
+                                <rect x="2.5" y="2.5" width="15" height="15" fill="#0B74E5">
+                                </rect>
+                            </g>
+                        </svg>
+                        <span>
+                            Hữu ích
+                        </span>
+                    </span>
+                    <span data-view-id="pdp_product_review_reply_button" class="review-comment__reply">
+                        Bình luận
+                    </span>
+                    <span data-view-id="pdp_product_review_reply_button" class="review-comment__reply">
+                        Chia sẻ
+                    </span>
+                </div>
+            </div>
+            <div class="customer-reviews__pagination">
+                <ul class="Navigation__Wrapper-sc-dgcpmq-0 loVmKB">
+                    <li>
+                        <a class="btn prev">
+                            <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" color="#C4C4CF"
+                                height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"
+                                style="color: rgb(196, 196, 207);">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 19l-7-7 7-7">
+                                </path>
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn active">
+                            1
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn ">
+                            2
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn ">
+                            3
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn ">
+                            4
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn ">
+                            5
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn next">
+                            <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" color="#38383D"
+                                height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"
+                                style="color: rgb(56, 56, 61);">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Receive Mail   -->
+        <div class="row p-3 mt-3 align-items-center">
+            <div class="col-md-6 row">
+                <div class="col-md-3">
+                    <img class="w-100" src="https://frontend.tikicdn.com/_desktop-next/static/img/footer/newsletter.png"
+                        alt="">
+                </div>
+
+                <div class="info--mail col-md-9">
+                    <h6>Đăng ký nhận bản tin Tiki</h6>
+                    <p class="small">Đừng bỏ lỡ hàng ngàn sản phẩm và chương trình siêu hấp dẫn</p>
+                </div>
+            </div>
+
+            <div class="input-group col-md-6">
+                <input type="text" class="form-control" placeholder="Địa chỉ Email của bạn">
+
+                <button class="btn btn-success" type="submit" style="height: 38px;
+                border-radius: 0;">Đăng ký</button>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="modal-content">
+    <button (click)="activeModal.close()" type="button" class="close text-end" data-dismiss="modal" style="text-align: end;
+                position: absolute;
+                right: -15px;
+                z-index: 10;
+                background: white;
+                top: -15px;
+                border: 1px solid;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                justify-content: center;">&times;</button>
+    <div class="row m-0 p-0">
+        <div class="col-md-8 p-3">
+            <h4>Xin chào,</h4>
+            <div class="form-group">
+                <label for="">Đăng nhập</label>
+                <form class="mb-3 needs-validation" (ngSubmit)="onSubmit()">
+                    <input [(ngModel)]="accountLogin.username" name="username" type="text" class="form-control mt-2"
+                        aria-describedby="helpId" placeholder="Tên đăng nhập hoặc email">
+                    <div class="valid-feedback">Valid Username.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+
+                    <input [(ngModel)]="accountLogin.password" name="password" type="password" class="form-control mt-3"
+                        aria-describedby="helpId" placeholder="Mật khẩu">
+                    <div class="valid-feedback">Valid Password.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+
+                    <button (click)="validate()" type="submit" name="" id=""
+                        class="btn btn-danger mt-4 btn-smd btn-block">Tiếp
+                        tục</button>
+                </form>
+                <div class="text-center mt-5 mb-3 small">Hoặc Tiếp tục bằng</div>
+                <div class="row justify-content-center">
+                    <div class="col-md-2">
+                        <a href=""><img class="w-100"
+                                src="https://salt.tikicdn.com/ts/upload/3a/22/45/0f04dc6e4ed55fa62dcb305fd337db6c.png"
+                                alt=""></a>
+                    </div>
+
+                    <div class="col-md-2">
+                        <a href=""><img class="w-100"
+                                src="https://salt.tikicdn.com/ts/upload/1c/ac/e8/141c68302262747f5988df2aae7eb161.png"
+                                alt=""></a>
+                    </div>
+
+                    <div class="col-md-2">
+                        <a href=""><img class="w-100"
+                                src="https://salt.tikicdn.com/ts/upload/98/37/86/517cfc05f04466b3118357a1fb4182c8.png"
+                                alt=""></a>
+                    </div>
+                    <div class="small mt-2 m-3">Bằng việc tiếp tục, bạn đã chấp nhận <a href="">điều khoản sử
+                            dụng</a> </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 pt-5 text-center"
+            style="background: linear-gradient(136deg, rgb(240, 248, 255) -1%, rgb(219, 238, 255) 85%)">
+            <img class="w-75" src="https://salt.tikicdn.com/ts/upload/eb/f3/a3/25b2ccba8f33a5157f161b6a50f64a60.png"
+                alt="">
+            <h6 class="mt-4 ">Mua sắm tại Tiki</h6>
+            <p class="small">Siêu ưu đãi mỗi ngày</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="Container-sc-itwfbd-0 hfMLFx snipcss-Apoq8" style="padding-top: 1.66%; padding-bottom: 3%;">
+  <div class="Account__StyledAccountLayout-sc-1d5h8iz-0 dLDnti">
+    <app-sidebar-account [activeTag]="'address'"></app-sidebar-account>
+    <div class="Account__StyledAccountLayoutInner-sc-1d5h8iz-1 jXurFV snipcss-3AoGR">
+      <div class="styles__StyledAccountAddressCreate-sc-1nvdelo-0 fJeMaX">
+        <div class="heading">
+          Tạo sổ địa chỉ
+        </div>
+        <div class="inner">
+          <form>
+            <div class="form-control">
+              <label for="fullName" class="input-label">
+                Họ và tên:
+              </label>
+              <div>
+                <input type="text" required="" name="fullName" [(ngModel)]="addressReq.fullName"
+                  placeholder="Nhập họ và tên" maxlength="50" class="Input-sc-17i9bto-0 girQwT"
+                  value="Nguyễn Huy Hoàng">
+              </div>
+            </div>
+            <div class="form-control ">
+              <label for="telephone" class="input-label">
+                Số điện thoại:
+              </label>
+              <div>
+                <input type="text" required="" name="telephone" [(ngModel)]="addressReq.phoneNumber"
+                  placeholder="Nhập số điện thoại" class="Input-sc-17i9bto-0 girQwT" value="">
+              </div>
+            </div>
+            <div class="form-control">
+              <label for="region" class="input-label">
+                Tỉnh/Thành phố:
+              </label>
+              <select required="" (change)="onChangeProvince($event.target)">
+                <option value="" [selected]="module == 'CREATE'">Chọn Tỉnh/Thành phố</option>
+                <option [selected]="item.name == addressReq.province" [value]="item.code"
+                  *ngFor="let item of provinces">{{item.name}}</option>
+              </select>
+            </div>
+            <div class="form-control">
+              <label for="district" class="input-label">
+                Quận huyện:
+              </label>
+              <select required="" (change)="onChangeDistrict($event.target)">
+                <option value="" [selected]="module == 'CREATE'">Chọn Quận/Huyện</option>
+                <option [selected]="item.name == addressReq.district" [value]="item.code"
+                  *ngFor="let item of districts">{{item.name}}</option>
+              </select>
+            </div>
+            <div class="form-control">
+              <label for="ward" class="input-label">
+                Phường xã:
+              </label>
+              <select required="" (change)="onChangeWard($event.target)">
+                <option value="" [selected]="module == 'CREATE'">Chọn Phường/Xã</option>
+                <option [selected]="item.name == addressReq.ward" [value]="item.code" *ngFor="let item of wards">
+                  {{item.name}}</option>
+              </select>
+            </div>
+            <div class="form-control">
+              <label for="address" class="input-label">
+                Địa chỉ:
+              </label>
+              <div>
+                <textarea [(ngModel)]="addressReq.content" required="" name="street" rows="5"
+                  placeholder="Nhập địa chỉ"></textarea>
+              </div>
+            </div>
+            <div *ngIf="module == 'CREATE' || (module == 'UPDATE' && addressRes.defaultAddress == false)"
+              class="form-control">
+              <label class="input-label">
+                &nbsp;
+              </label>
+              <label class="Checkbox__StyledCheckbox-sc-75m08j-0 ">
+                <input type="checkbox" name="addressDefault" [(ngModel)]="addressReq.defaultAddress"
+                  (change)="checkToDefault($event.target)">
+
+                <span class="label" style="cursor: pointer;">
+                  Đặt làm địa chỉ mặc định
+                </span>
+              </label>
+            </div>
+            <div class="form-control">
+              <label class="input-label">
+                &nbsp;
+              </label>
+              <button (click)="module == 'CREATE' ? saveAddress() : updateAddress()" type="submit" class="btn-submit">
+                Cập nhật
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

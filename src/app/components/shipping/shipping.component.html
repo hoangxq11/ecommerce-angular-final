@@ -1,0 +1,155 @@
+<div class="Container-sc-itwfbd-0 hfMLFx snipcss-d7k2h style-rnDEn pb-4" id="style-rnDEn">
+    <div class="AddressList__StyledAddressList-sc-lm7k31-0 jQjVjo">
+        <h3 class="title">
+            Địa chỉ giao hàng
+        </h3>
+        <h5 class="address-list-text" *ngIf="addressListData.length > 0">
+            Chọn địa chỉ giao hàng có sẵn bên dưới:
+        </h5>
+        <div class="address-list" *ngIf="addressListData.length > 0">
+            <div *ngFor="let addressData of addressListData" class="styles__StyledAddressItem-sc-y17c35-0 bsrCjS">
+                <p class="name">
+                    {{addressData.fullName}}
+                </p>
+                <p class="address">
+                    Địa chỉ: {{addressData.content + ", " + addressData.ward + ", "
+                    + addressData.district + ", " + addressData.province}}
+                </p>
+                <p class="address">
+                    Việt Nam
+                </p>
+                <p class="phone">
+                    Điện thoại: {{addressData.phoneNumber}}
+                </p>
+                <p class="action">
+                    <button (click)="onChangeAddressDefault(addressData.id)" type="button" class="btn saving-address">
+                        Giao đến địa chỉ này
+                    </button>
+                    <button type="button" class="btn edit-address">
+                        Sửa
+                    </button>
+                </p>
+                <span *ngIf="addressData.defaultAddress == true" class="default">
+                    Mặc định
+                </span>
+            </div>
+        </div>
+    </div>
+    <p *ngIf="addressListData.length > 0" class="ShippingPage__AddNewAddress-sc-4zu5jt-0 gpiOgm">
+        Bạn muốn giao hàng đến địa chỉ khác?
+        <span>
+            Thêm địa chỉ giao hàng mới
+        </span>
+    </p>
+    <p *ngIf="addressListData.length <= 0" class="ShippingPage__AddNewAddress-sc-4zu5jt-0 gpiOgm">
+        Bạn chưa có địa chỉ giao hàng.
+        <span>
+            Thêm địa chỉ giao hàng mới
+        </span>
+    </p>
+    <div class="styles__StyledAddressForm-sc-y1ursh-1 dtkMQo">
+        <div class="form-container">
+            <div class="styles__FormItem-sc-y1ursh-0 kSzifj">
+                <label>
+                    Họ tên
+                </label>
+                <input type="text" name="full_name" [(ngModel)]="addressReq.fullName" placeholder="Nhập họ tên"
+                    maxlength="50" class="Input-sc-17i9bto-0 girQwT">
+            </div>
+            <div class="styles__FormItem-sc-y1ursh-0 kSzifj">
+                <label>
+                    Điện thoại di động
+                </label>
+                <input type="text" name="telephone" [(ngModel)]="addressReq.phoneNumber"
+                    placeholder="Nhập số điện thoại" class="Input-sc-17i9bto-0 girQwT">
+            </div>
+            <div class="styles__FormItem-sc-y1ursh-0 kSzifj">
+                <label>
+                    Tỉnh/Thành phố
+                </label>
+                <div class="style__StyledRCSelect-sc-1jb5uhz-0 dhUHhV style-xk99w" id="style-xk99w">
+                    <div class="rc-select rc-select-enabled">
+                        <div class="rc-select-selection
+                          rc-select-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true"
+                            aria-controls="d8b40762-68bb-4e03-cb7d-5def22f60592" aria-expanded="false" tabindex="0">
+
+                            <select id="city" (change)="onChangeProvince($event.target)">
+                                <option value="" selected>Chọn tỉnh thành</option>
+                                <option [value]="item.code" *ngFor="let item of provinces">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="styles__FormItem-sc-y1ursh-0 kSzifj">
+                <label>
+                    Quận/Huyện
+                </label>
+                <div class="style__StyledRCSelect-sc-1jb5uhz-0 dhUHhV style-LFZAa" id="style-LFZAa">
+                    <div class="rc-select rc-select-enabled">
+                        <div class="rc-select-selection
+                          rc-select-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true"
+                            aria-controls="700514cf-feb6-4e4b-f6c0-3d5fd526a304" aria-expanded="false" tabindex="0">
+                            <select (change)="onChangeDistrict($event.target)">
+                                <option value="" selected>Chọn Quận/Huyện</option>
+                                <option [value]="item.code" *ngFor="let item of districts">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="styles__FormItem-sc-y1ursh-0 kSzifj">
+                <label>
+                    Phường/Xã
+                </label>
+                <div class="style__StyledRCSelect-sc-1jb5uhz-0 dhUHhV style-mfSl7" id="style-mfSl7">
+                    <div class="rc-select rc-select-enabled">
+                        <div class="rc-select-selection
+                          rc-select-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true"
+                            aria-controls="4c20253a-21f5-4d37-f789-9b7732eecd0e" aria-expanded="false" tabindex="0">
+                            
+                            <select (change)="onChangeWard($event.target)">
+                                <option value="" selected>Chọn Phường/Xã</option>
+                                <option [value]="item.code" *ngFor="let item of wards">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="styles__FormItem-sc-y1ursh-0 kSzifj">
+                <label>
+                    Địa chỉ
+                </label>
+                <textarea type="textarea" name="street" [(ngModel)]="addressReq.content"
+                    placeholder="Ví dụ: 52, đường Trần Hưng Đạo" class="Input__TextArea-sc-17i9bto-1 ekRedY"></textarea>
+            </div>
+            <div class="styles__FormItem-sc-y1ursh-0 kSzifj">
+                <label>
+                </label>
+                <span>
+                    <label id="style-D8Nyz" class="style-D8Nyz">
+                        <label>
+                            <input [(ngModel)]="addressReq.defaultAddress" (change)="checkToDefault($event.target)"
+                                name="is_default" type="checkbox">
+                            <span>
+                            </span>
+                        </label>
+                        Sử dụng địa chỉ này làm mặc định.
+                    </label>
+                </span>
+            </div>
+            <div class="styles__FormItem-sc-y1ursh-0 kSzifj style-ArGZl" id="style-ArGZl">
+                <label>
+                </label>
+                <div class="button-group">
+                    <button class="cancel">
+                        Huỷ bỏ
+                    </button>
+                    <button class="create-update" (click)="saveAddress()">
+                        Giao đến địa chỉ này
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

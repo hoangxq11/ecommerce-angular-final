@@ -1,0 +1,210 @@
+<div class="main bg-light pt-3 pb-3">
+    <div class="container">
+        <!-- Payment  -->
+        <div class="row m-1 justify-content-between">
+            <div class="col-md-9 pl-0 ">
+                <div class="bg-white p-3">
+                    <h6 class="text-dark">1. Chọn hình thức giao hàng</h6>
+
+                    <div class="option_delivery row">
+                        <div class="standard col-md-6 ">
+                            <div class="custom-control custom-radio bg-light p-4 text-center">
+                                <input type="radio" checked (change)="defaultShipping()" class="mr-2"
+                                    name="shippingType" />
+                                <label class="" htmlFor="customRadio">Giao hàng tiêu chuẩn</label>
+                            </div>
+                        </div>
+
+                        <div class="fast col-md-6">
+                            <div class="custom-control custom-radio bg-light p-4 text-center">
+                                <input type="radio" class="mr-2" (change)="fastShipping()" name="shippingType" />
+                                <label class="" htmlFor="customRadio1">Giao hàng nhanh</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info_prod border border-light mt-3 p-3 m-0 row justify-content-between">
+                        <div class="col-md-6 p-0 row">
+                            <div class="col-md-8 ">
+                                <span class="text-success">Giao hàng khoảng 5-7 ngày</span>
+                                <p>Được giao bởi TelePost</p>
+                            </div>
+
+                            <div class="col-md-4 p-0 text-right">
+                                <span>20.000 đ</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 p-0 row">
+                            <div class="col-md-8 ">
+                                <span class="text-success">Giao hàng khoảng 3-5 ngày</span>
+                                <p>Được giao bởi FastPost</p>
+                            </div>
+
+                            <div class="col-md-4 p-0 text-right">
+                                <span>40.000 đ</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h6 class="text-dark mt-4">Danh sách sản phẩm</h6>
+                    <div *ngFor="let productCart of listProductToPayment" class="bg-white p-3 row mt-2">
+
+                        <img class="col-md-2 w-100" style="height: 110px;"
+                            [src]="productCart.productDetailDto.productDto.images[0].imageUrl" alt="">
+
+                        <div class="col-md-6 small">
+                            <h6>{{productCart.productDetailDto.productDto.name.length <= 50 ?
+                                    productCart.productDetailDto.productDto.name :
+                                    productCart.productDetailDto.productDto.name.substring(0, 50) + " ..." }}</h6>
+                                    <p>Màu sắc: {{productCart.productDetailDto.color != null ?
+                                        productCart.productDetailDto.color.name : 'None'}}
+                                    </p>
+                                    <p>Kích cỡ: {{productCart.productDetailDto.size != null ?
+                                        productCart.productDetailDto.size.name : 'None'}}
+                                    </p>
+                        </div>
+
+                        <div class="input-group col-md-2" style="height:31px">
+                            x {{productCart.quantity}}
+                        </div>
+
+                        <div class="proce col-md-2 text-right">
+                            <h6 class="text-danger">{{(productCart.quantity * (productCart.productDetailDto.price -
+                                productCart.productDetailDto.discount.value)).toLocaleString().replaceAll(",",
+                                ".")}} <u>đ</u> </h6>
+                            <s class="small mr-2">
+                                {{(productCart.productDetailDto.price *
+                                productCart.quantity).toLocaleString().replaceAll(",",
+                                ".")}} <u>đ</u>
+                            </s>
+                            <span
+                                class="text-danger small">-{{(100*productCart.productDetailDto.discount.value/productCart.productDetailDto.price)
+                                | number : '1.0-0'}}%</span>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <h6 class="text-dark mt-3">2. Chọn hình thức thanh toán</h6>
+                    <div class="option_payment border border-light mt-3 p-3">
+                        <div class="form-check mb-3">
+                            <input checked class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
+                                value="option1" defaultChecked />
+                            <label class="form-check-label" htmlFor="money">
+                                <img class="ml-3 mr-2"
+                                    src="https://salt.tikicdn.com/ts/upload/92/b2/78/1b3b9cda5208b323eb9ec56b84c7eb87.png"
+                                    style="width: 8%" alt="" />
+                                Thanh toán tiền mặt khi nhận hàng
+                            </label>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
+                                value="option2" />
+                            <label class="form-check-label" htmlFor="visa">
+                                <img class="ml-3 mr-2"
+                                    src="https://p.kindpng.com/picc/s/279-2797793_transparent-payment-icon-png-credit-card-payment-icon.png"
+                                    style="width: 4%" alt="" />
+                                Thanh toán bằng thẻ quốc tế Visa, Master, JCB
+                            </label>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+                                value="option3" />
+                            <label class="form-check-label" htmlFor="atm">
+                                <img class="ml-3 mr-2"
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwbWI8dSRiK5LXloG_F_w6nY4GURmG6l0iqA&usqp=CAU"
+                                    style="width: 4%" alt="" />
+                                Thẻ ATM nội địa/Internet Banking (Miễn phí thanh toán)
+                            </label>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios4"
+                                value="option4" />
+                            <label class="form-check-label" htmlFor="momo">
+                                <img class="ml-3 mr-2"
+                                    src="https://salt.tikicdn.com/ts/upload/ce/f6/e8/ea880ef285856f744e3ffb5d282d4b2d.jpg"
+                                    style="width: 10%" alt="" />
+                                Thanh toán bằng ví MoMo
+                            </label>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios5"
+                                value="option5" />
+                            <label class="form-check-label" htmlFor="zalopay">
+                                <img class="ml-3 mr-2"
+                                    src="https://play-lh.googleusercontent.com/F8cUV5oOLjCTMSvSRymK1154MwKalnvkepN4xGrfWBC_tcXvNTq_sEStiwCYV61lRdI"
+                                    style="width: 4%" alt="" />
+                                Thanh toán bằng ZaloPay
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-3 pr-0">
+                <div *ngIf="addressDefault.id != null" class="bg-white p-3">
+                    <div class="row justify-content-around">
+                        <strong>Địa chỉ giao hàng</strong>
+                        <button [routerLink]="['/shipping']" type="button" name="" id=""
+                            class="btn btn-success btn-sm">Thay đổi</button>
+                    </div>
+                    <hr>
+                    <div class="">
+                        <h6 class="">{{addressDefault.fullName}}</h6>
+                        <p>{{addressDefault.content + " - " + addressDefault.ward + " - " +addressDefault.district + " -
+                            " +
+                            addressDefault.province}}</p>
+                        <p>Điện thoại: {{addressDefault.phoneNumber}}</p>
+                    </div>
+                </div>
+
+                <div class="bg-white mt-3 p-2">
+                    <div class="bg-white mt-3 p-2">
+                        <div class="row  pl-3 pr-3 p-2 justify-content-between">
+                            <span>Tạm tính</span>
+                            <label class="text-secondary">{{totalAmount.toLocaleString().replaceAll(",",
+                                ".")}} <u>đ</u>
+                            </label>
+                        </div>
+
+                        <div class="row  pl-3 pr-3 p-2 justify-content-between">
+                            <span>Giảm giá</span>
+                            <label class="text-secondary h6">{{discount.toLocaleString().replaceAll(",",
+                                ".")}} <u>đ</u>
+                            </label>
+                        </div>
+
+                        <div class="row  pl-3 pr-3 p-2 justify-content-between">
+                            <span>Giao hàng</span>
+                            <label class="text-secondary h6">{{shippingAmount.toLocaleString().replaceAll(",",
+                                ".")}} <u>đ</u>
+                            </label>
+                        </div>
+
+                        <div class="row  pl-3 pr-3 p-2 justify-content-between">
+                            <span>Tổng cộng</span>
+                            <label class="text-danger h5">{{(totalAmount - discount +
+                                shippingAmount).toLocaleString().replaceAll(",",
+                                ".")}} <u>đ</u>
+                            </label>
+                            <small class="col-md-12 p-0 text-right">(Đã bao gồm VAT nếu có)</small>
+                        </div>
+                    </div>
+                </div>
+                <button (click)="addressDefault.id != null && processOrder()"
+                    (click)="addressDefault.id == null && linkToAddress()" type="button" name="" id=""
+                    class="btn btn-danger btn-md btn-block mt-3 mb-1">Tiến hành thanh
+                    toán</button>
+                <small>(Vui lòng kiểm tra đơn hàng trước khi đặt mua)
+
+                </small>
+            </div>
+
+        </div>
+    </div>
+</div>

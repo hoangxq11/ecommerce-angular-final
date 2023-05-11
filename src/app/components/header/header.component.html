@@ -1,0 +1,154 @@
+<div style="background-color: rgb(1, 127, 255);">
+    <div class="container p-0">
+        <div class="row pt-2 pl-3 justify-content-between">
+            <div class="col-md-5 row">
+                <div class="col-md-3" style="font-size:13px">
+                    <a href="" style="color: white">Điều khoản </a>
+                </div>
+
+                <div class="col-md-3 pl-1" style="font-size:13px">
+                    <a href="" style="color: white">Chính sách </a>
+                </div>
+            </div>
+            <div class="col-md-3 row"></div>
+            <div class="col-md-4 row justify-content-end">
+                <div class="col-md-4" style="font-size:13px">
+                    <a href="" style="color: white">
+                        <i class="far fa-bell"></i> Thông báo
+                        <span class="badge badge-pill badge-warning position-absolute"
+                            style="right: 0.7rem;top: -0.2rem;">4</span>
+                    </a>
+                </div>
+
+                <div class="col-md-4" style="font-size:13px">
+                    <a href="" style="color: white"><i class="far fa-question-circle"></i> Trợ giúp</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <nav class="navbar navbar-expand-sm navbar-dark col-12 pt-0">
+                <a class="navbar-brand pt-0 col-1" href="#">
+                    <!-- <img style="max-width:147%"
+                        src="https://scontent.fhan3-4.fna.fbcdn.net/v/t1.15752-9/341288112_780656336606591_5841797361888499576_n.png?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=jACdvwfpguAAX8bNvic&_nc_ht=scontent.fhan3-4.fna&oh=03_AdRpcfbzWea06R9ZEbvWAUpGea4eKx-QvZbZfE1Tcl3hiw&oe=64686349"
+                        alt="logo"> -->
+                    <img style="max-width:140%" src="https://salt.tikicdn.com/ts/upload/23/97/dd/2d66c7c7cd54895f698aae24dce13b90.png" alt="">
+                </a>
+                <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
+                    data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="collapse navbar-collapse col-md-11 p-0" id="collapsibleNavId">
+                    <ul class="navbar-nav align-items-center col-md-12">
+                        <li class="nav-item dropdown mr-2 active">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bars"></i>
+
+                                <small>Danh mục</small><br>
+                                <span class="">Sản phẩm</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a [routerLink]="['/category', convertToSlug(category.name)+'-c'+category.id]"
+                                    *ngFor="let category of categoryRes.data" class="dropdown-item" href="#">
+                                    <img class="mr-2" style="width: 25px;" src="{{category.image.imageUrl}}" alt="">
+                                    <small>{{category.name}}</small>
+                                </a>
+                            </div>
+                        </li>
+
+                        <div class="input-group align-items-center">
+                            <input type="text" class="form-control" [(ngModel)] = "searchReq.keyWord" name="keyword"
+                                placeholder="Tìm sản phẩm, danh mục hay thương hiệu mong muốn ..." id="demo"
+                                name="email" style="border-radius: 0px; background-clip: unset; ">
+                            <div class="input-group-append" style="height:38px">
+                                <button [routerLink]="['/search', searchReq.keyWord]" 
+                                 
+                                type="button" class="btn btn-primary" style="background: rgb(13, 92, 182);">
+                                    <i class="fas fa-search small"></i>
+                                    <small>Tìm kiếm</small>
+                                </button>
+                            </div>
+                        </div>
+
+                        <li class="nav-item dropdown ml-3 mr-2 active" style="font-size:14px">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user-circle"></i>
+                                Tài khoản
+                            </a>
+                            <div *ngIf="authService.isLoggedIn()" class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item">
+                                    <button [routerLink]="['/account']" type="button" class="btn btn-warning btn-sm btn-block" data-toggle="modal"
+                                        data-target="#myModal">
+                                        Thông tin tài khoản
+                                    </button>
+                                </a>
+                                <a class="dropdown-item">
+                                    <button [routerLink]="['/order']" type="button" class="btn btn-warning btn-sm btn-block" data-toggle="modal"
+                                        data-target="#myModal">
+                                        Đơn hàng của tôi
+                                    </button>
+                                </a>
+                                <a class="dropdown-item">
+                                    <button (click)="onLogout()" type="button" class="btn btn-warning btn-sm btn-block">
+                                        Đăng xuất
+                                    </button>
+                                </a>
+                            </div>
+
+                            <div *ngIf="!authService.isLoggedIn()" class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" (click)="openLoginModal()">
+                                    <button type="button" class="btn btn-warning btn-sm btn-block" data-toggle="modal"
+                                        data-target="#myModal">
+                                        Đăng nhập
+                                    </button>
+                                </a>
+
+                                <a class="dropdown-item" (click)="openRegisterModal()">
+                                    <button type="button" class="btn btn-warning btn-sm btn-block" data-toggle="modal"
+                                        data-target="#myModal">
+                                        Tạo tài khoản
+                                    </button>
+                                </a>
+
+
+                                <a class="dropdown-item" href="#">
+                                    <button type="button" name="" id="" class="btn btn-primary btn-sm btn-block">
+                                        <i class="fab fa-facebook-f mr-4"></i> <span>Đăng nhập bằng Facebook</span>
+                                    </button>
+                                </a>
+
+                                <a class="dropdown-item" href="#">
+                                    <button type="button" name="" id="" class="btn btn-danger btn-sm btn-block">
+                                        <i class="fab fa-google-plus-g mr-3"></i> <span>Đăng nhập bằng Google</span>
+                                    </button>
+                                </a>
+
+                                <a class="dropdown-item" href="#">
+                                    <button type="button" name="" id="" class="btn btn-info btn-sm btn-block">
+                                        <i class="far fa-comment-dots mr-4"></i> <span>Đăng nhập bằng Zalo</span>
+                                    </button>
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown active" style="font-size:14px">
+                            <a [routerLink]="authService.isLoggedIn() ? ['/my-cart'] : null"
+                                (click)="!authService.isLoggedIn() && openLoginModal()" class="nav-link dropdown-toggle"
+                                id="dropdownId" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <i class="fas fa-shopping-cart mr-1">
+                                    <span class="badge badge-pill badge-warning position-absolute"
+                                        style="top: 0; left: 1.2rem">0</span>
+                                </i> Giỏ hàng
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>

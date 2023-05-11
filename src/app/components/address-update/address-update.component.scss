@@ -1,0 +1,282 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+* {
+    box-sizing: border-box;
+}
+
+.dLDnti {
+    display: flex;
+    width: 100%;
+    margin: 0px auto 20px;
+    flex-wrap: wrap;
+}
+
+.hfMLFx {
+    width: 1270px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+main {
+    display: block;
+}
+
+body {
+    margin: 0px;
+    overflow-x: hidden;
+}
+
+html {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    background-color: rgb(245, 245, 250);
+    line-height: 1.15;
+    text-size-adjust: 100%;
+}
+
+.jXurFV {
+    flex: 1 1 0%;
+}
+
+*,
+:before,
+:after {
+    box-sizing: border-box;
+}
+
+.fJeMaX .heading {
+    font-size: 19px;
+    line-height: 21px;
+    font-weight: 300;
+    margin: 20px 0px 15px;
+}
+
+.fJeMaX .inner {
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    min-height: 400px;
+    padding: 30px 20px;
+}
+
+.fJeMaX form {
+    width: 600px;
+}
+
+.fJeMaX .form-control {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0px 0px 15px;
+}
+
+.fJeMaX .input-label {
+    width: 110px;
+    min-width: 110px;
+    font-size: 13px;
+    color: rgb(51, 51, 51);
+}
+
+.fJeMaX .form-control>div {
+    display: flex;
+    flex: 1 1 0%;
+    position: relative;
+    z-index: 1;
+}
+
+input {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0px;
+    overflow: visible;
+}
+
+.girQwT {
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s, -webkit-box-shadow 0.15s ease-in-out 0s;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+    height: 34px;
+    padding: 6px 12px;
+    line-height: 34px;
+    outline: none;
+}
+
+.fJeMaX .form-control input {
+    flex: 1 1 0%;
+}
+
+select {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0px;
+    text-transform: none;
+}
+
+.fJeMaX .form-control select {
+    width: 100%;
+    border: 1px solid rgb(204, 204, 204);
+    height: 34px;
+    padding: 6px 12px;
+    line-height: 34px;
+    outline: none;
+    background: 0px center;
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+.kpLnYz {
+    display: flex;
+    margin-right: 15px;
+}
+
+.etNXAi {
+    display: inline-block;
+}
+
+button {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0px;
+    overflow: visible;
+    text-transform: none;
+}
+
+button,
+[type="submit"] {
+    appearance: button;
+}
+
+.fJeMaX .btn-submit {
+    border: 0px;
+    width: 176px;
+    height: 40px;
+    border-radius: 4px;
+    color: rgb(74, 74, 74);
+    font-size: 14px;
+    background-color: rgb(253, 216, 53);
+    cursor: pointer;
+}
+
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0px;
+    overflow: auto;
+}
+
+.fJeMaX .form-control textarea {
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+    width: 100%;
+    padding: 6px 12px;
+}
+
+[type="radio"] {
+    box-sizing: border-box;
+    padding: 0px;
+}
+
+.kpLnYz input[type="radio"] {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    visibility: hidden;
+    clip: rect(0px, 0px, 0px, 0px);
+    opacity: 0;
+}
+
+.kpLnYz .radio-fake {
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgb(147, 150, 157);
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 12px 10px 0px;
+    position: relative;
+    z-index: 1;
+    color: rgb(120, 120, 120);
+    flex-shrink: 0;
+}
+
+.kpLnYz input[type="radio"]:checked+.radio-fake {
+    border-color: rgb(13, 92, 182);
+}
+
+.kpLnYz .radio-fake:before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    background-color: rgb(13, 92, 182);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.3s ease 0s;
+}
+
+.kpLnYz input[type="radio"]:checked+.radio-fake:before {
+    transform: scale(1);
+}
+
+.kpLnYz .label {
+    font-size: 13px;
+    line-height: 20px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+[type="checkbox"] {
+    box-sizing: border-box;
+    padding: 0px;
+}
+
+.etNXAi input[type="checkbox"] {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    visibility: hidden;
+    clip: rect(0px, 0px, 0px, 0px);
+    opacity: 0;
+}
+
+.etNXAi .checkbox-fake {
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgb(120, 120, 120);
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px 12px 0px 0px;
+    position: relative;
+    z-index: 1;
+    color: rgb(120, 120, 120);
+}
+
+.etNXAi .checkbox-fake:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 2px;
+    top: 3px;
+    width: 12px;
+    height: 6px;
+    border-left: 2px solid rgb(255, 255, 255);
+    border-bottom: 2px solid rgb(255, 255, 255);
+    transform: scale(0) rotate(-45deg);
+    transition: transform 0.3s ease 0s;
+}
+
+.etNXAi .label {
+    font-size: 14px;
+    line-height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: justify;
+}

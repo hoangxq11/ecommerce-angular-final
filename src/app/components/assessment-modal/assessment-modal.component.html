@@ -1,0 +1,80 @@
+<div class="shopee-popup-form kw39fO snipcss-2rjlt">
+    <div class="shopee-popup-form__header">
+        <div class="shopee-popup-form__title">Đánh giá sản phẩm</div>
+    </div>
+    <div class="shopee-popup-form__main">
+        <div class="shopee-popup-form__main-container">
+
+            <div class="rating-modal-handler__container rating-modal-handler__container--last"><a class="wfAs5m JVbkct"
+                    [routerLink]="['/product-detail', convertToSlug(productBill.productDetail.productDto.name)+'-p'+productBill.productDetail.productDto.id]"
+                    target="_blank" rel="noopener noreferrer">
+                    <div class="shopee-image__wrapper x4HRyF">
+                        <div class="shopee-image__place-holder">
+
+                        </div>
+                        <div [style.backgroundImage]="'url(' + productBill.productDetail.productDto.images[0].imageUrl + ')'"
+                            class="shopee-image__content style-fotXs" id="style-fotXs">
+                            <div class="shopee-image__content--blur"> </div>
+                        </div>
+                    </div>
+                    <div class="rFU3o7">
+                        <div class="y6O2HQ">{{productBill.productDetail.productDto.name.length
+                            <= 60 ? productBill.productDetail.productDto.name :
+                                productBill.productDetail.productDto.name.substring(0, 60) + " ..." }} </div>
+                                <div class=" mt-2">Màu sắc: {{productBill.productDetail.color != null ?
+                                    productBill.productDetail.color.name :
+                                    'None'}}</div>
+                                <div class="">Kích cỡ: {{productBill.productDetail.size != null
+                                    ?
+                                    productBill.productDetail.size.name :
+                                    'None'}}</div>
+                        </div>
+                </a>
+                <div id="style-VK58h" class="style-VK58h" style="margin-left: 10%;">
+                    <div class="BvUqYP mt-4 mb-4">
+                        <div class="QHxANK"><span>Chất lượng sản phẩm</span></div>
+                        <ngb-rating class="mb-2" [max]=5 [(rate)]="currentRate"
+                            (rateChange)="ratingChange()"></ngb-rating>
+                        <span class="AS3YTY style-Q2mUA ml-3" id="style-Q2mUA">{{ratingStr}}</span>
+                    </div>
+                </div>
+                <div class="XAxU8j">
+                    <div id="style-ILNYn" class="style-ILNYn">
+                        <textarea [(ngModel)] = "assessmentReq.comment" class="zGK0Ro style-YgEhS"
+                            placeholder="Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé."
+                            id="style-YgEhS"></textarea>
+                    </div>
+                    <div class="iguBPQ">
+                        <div class="b3MQnj style-nQm5v" id="style-nQm5v">
+                            <button>
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M8.28268 0.908882C8.47794 0.71362 8.79452 0.71362 8.98978 0.908882L9.0908 1.0099C9.28606 1.20516 9.28606 1.52174 9.0908 1.717L1.71669 9.09112C1.52142 9.28638 1.20484 9.28638 1.00958 9.09112L0.908564 8.9901C0.713301 8.79484 0.713301 8.47826 0.908563 8.283L8.28268 0.908882Z"
+                                        fill="#F6F6F6"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M1.00973 0.908882C1.20499 0.71362 1.52157 0.71362 1.71683 0.908882L9.09095 8.28299C9.28621 8.47826 9.28621 8.79484 9.09095 8.9901L8.98993 9.09112C8.79467 9.28638 8.47809 9.28638 8.28283 9.09112L0.908713 1.717C0.713451 1.52174 0.71345 1.20516 0.908713 1.0099L1.00973 0.908882Z"
+                                        fill="#F6F6F6"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <label class="_8IUAAl">
+                            <svg width="20" height="18" viewBox="0 0 20 18" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M6.15377 9.76902C6.15377 11.8927 7.87492 13.6152 9.99992 13.6152C12.1236 13.6152 13.8461 11.8927 13.8461 9.76902C13.8461 7.64466 12.1236 5.92286 9.99992 5.92286C7.87492 5.92286 6.15377 7.64466 6.15377 9.76902ZM5 9.76902C5 7.00777 7.23813 4.76902 10 4.76902C12.7613 4.76902 15 7.00777 15 9.76902C15 12.5296 12.7613 14.769 10 14.769C7.23813 14.769 5 12.5296 5 9.76902ZM1.15385 17.2607C0.489784 17.2607 0 16.725 0 16.0662V4.12224C0 3.4623 0.489784 2.84596 1.15385 2.84596H4.61538L5.21635 1.73273C5.21635 1.73273 5.75421 0.538269 6.41827 0.538269H13.5817C14.2452 0.538269 14.7837 1.73273 14.7837 1.73273L15.3846 2.84596H18.8462C19.5096 2.84596 20 3.4623 20 4.12224V16.0662C20 16.725 19.5096 17.2607 18.8462 17.2607H1.15385Z"
+                                    fill="black" fill-opacity="0.26"></path>
+                            </svg>
+                            <span class="BUEdzm">5/6</span>
+                            <input class="_6C6K2E" type="file" accept="image/*">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shopee-popup-form__footer">
+        <button class="cancel-btn" (click)="activeModal.close()">Trở
+            Lại</button>
+        <button type="button" (click)="onAssessment()" class="btn btn-solid-primary btn--s btn--inline rx1ImE">Hoàn
+            thành</button>
+    </div>
+</div>

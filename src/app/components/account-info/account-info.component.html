@@ -1,0 +1,217 @@
+<div class="Container-sc-itwfbd-0 hfMLFx snipcss-Apoq8 pt-4" style="padding-top: 1.66%; padding-bottom: 3%;">
+  <div class="Account__StyledAccountLayout-sc-1d5h8iz-0 dLDnti">
+    <app-sidebar-account [activeTag]="'account-info'"></app-sidebar-account>
+    <div class="Account__StyledAccountLayoutInner-sc-1d5h8iz-1 jXurFV">
+      <div class="styles__StyledHeading-sc-s5c7xj-0 geNdhL">
+        Thông tin tài khoản
+      </div>
+      <div class="styles__StyleInfoPage-sc-s5c7xj-1 dfHeIP">
+        <div class="info">
+          <div class="info-left">
+            <span class="info-title">
+              Thông tin cá nhân
+            </span>
+            <div class="styles__StyledAccountInfo-sc-s5c7xj-2 khBVOu">
+              <form>
+                <div class="form-info">
+                  <div class="form-avatar">
+                    <div class="styles__StyleAvatar-sc-7twymm-0 iRBxWb">
+                      <div>
+                        <div class="avatar-view">
+                          <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/avatar.png"
+                            alt="avatar" class="default">
+                          <div class="edit">
+                            <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/edit.png"
+                              class="edit_img" alt="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-name">
+                    <div class="form-control">
+                      <label class="input-label">
+                        Họ &amp; Tên
+                      </label>
+                      <div>
+                        <div class="styles__StyledInput-sc-s5c7xj-5 hisWEc">
+                          <input class="input " type="search" name="fullName" maxlength="128" placeholder="Thêm họ tên"
+                            [(ngModel)] = "profileData.fullName">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-control">
+                      <label class="input-label">
+                        Tên đăng nhập
+                      </label>
+                      <div>
+                        <div class="styles__StyledInput-sc-s5c7xj-5 hisWEc">
+                          <input disabled [value]="profileData.accountDto.username" class="input " name="userName" maxlength="128" placeholder="Thêm nickname"
+                            type="search" value="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-control">
+                  <label class="input-label">
+                    Ngày sinh
+                  </label>
+                  <div>
+                    <div class="styles__StyledInput-sc-s5c7xj-5 hisWEc">
+                      <input type="date" [value]="profileData.dateOfBirth | date: 'dd/MM/yyyy'" name="dob"
+                        placeholder="Chọn ngày">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-control">
+                  <label class="input-label">
+                    Giới tính
+                  </label>
+                  <label class="Radio__StyledRadio-sc-1tpsfw1-0 eQckrx">
+                    <input type="radio" name="gender" value="male" checked="">
+                    <span class="radio-fake">
+                    </span>
+                    <span class="label">
+                      Nam
+                    </span>
+                  </label>
+                  <label class="Radio__StyledRadio-sc-1tpsfw1-0 eQckrx">
+                    <input type="radio" name="gender" value="female">
+                    <span class="radio-fake">
+                    </span>
+                    <span class="label">
+                      Nữ
+                    </span>
+                  </label>
+                  <label class="Radio__StyledRadio-sc-1tpsfw1-0 eQckrx">
+                    <input type="radio" name="gender" value="other">
+                    <span class="radio-fake">
+                    </span>
+                    <span class="label">
+                      Khác
+                    </span>
+                  </label>
+                </div>
+                <div class="form-control">
+                  <label class="input-label">
+                    &nbsp;
+                  </label>
+                  <button type="submit" class="styles__StyledBtnSubmit-sc-s5c7xj-3 cqEaiM btn-submit">
+                    Lưu thay đổi
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="info-vertical">
+          </div>
+          <div class="info-right">
+            <span class="info-title">
+              Số điện thoại và Email
+            </span>
+            <div class="styles__StyledListItem-sc-s5c7xj-4 lCUBE">
+              <div class="list-item">
+                <div class="info">
+                  <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/phone.png" class="icon"
+                    alt="">
+                  <div class="detail">
+                    <span>
+                      Số điện thoại
+                    </span>
+                    <span>
+                      {{profileData.phoneNumber != null ? profileData.phoneNumber : 'None'}}
+                    </span>
+                  </div>
+                </div>
+                <div class="status">
+                  <span>
+                  </span>
+                  <button class="button active">
+                    Cập nhật
+                  </button>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="info">
+                  <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/email.png" class="icon"
+                    alt="">
+                  <div class="detail">
+                    <span>
+                      Địa chỉ email
+                    </span>
+                    <span>
+                      {{profileData.accountDto.email}}
+                    </span>
+                  </div>
+                </div>
+                <div class="status">
+                  <span>
+                  </span>
+                  <button class="button active">
+                    Cập nhật
+                  </button>
+                </div>
+              </div>
+            </div>
+            <span class="info-title">
+              Bảo mật
+            </span>
+            <div class="styles__StyledListItem-sc-s5c7xj-4 lCUBE">
+              <div class="list-item">
+                <div>
+                  <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/lock.png" class="icon" alt="">
+                  <span>
+                    Đổi mật khẩu
+                  </span>
+                </div>
+                <div class="status">
+                  <span>
+                  </span>
+                  <button class="button active">
+                    Cập nhật
+                  </button>
+                </div>
+              </div>
+            </div>
+            <span class="info-title">
+              Liên kết mạng xã hội
+            </span>
+            <div class="styles__StyledListItem-sc-s5c7xj-4 lCUBE">
+              <div class="list-item">
+                <div>
+                  <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/facebook.png" class="icon">
+                  <span>
+                    Facebook
+                  </span>
+                </div>
+                <div class="status">
+                  <span>
+                  </span>
+                  <button class="button active">
+                    Liên kết
+                  </button>
+                </div>
+              </div>
+              <div class="list-item">
+                <div>
+                  <img src="https://frontend.tikicdn.com/_desktop-next/static/img/account/google.png" class="icon">
+                  <span>
+                    Google
+                  </span>
+                </div>
+                <div class="status is-danger">
+                  <span>
+                  </span>
+                  <button class="button active">
+                    Liên kết
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
