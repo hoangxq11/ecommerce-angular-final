@@ -7,6 +7,7 @@ import { AddressService } from 'src/app/services/address.service';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 import { BillReq } from '../../commons/dto/order';
+import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
   selector: 'app-payment',
@@ -30,10 +31,12 @@ export class PaymentComponent implements OnInit {
     private cartService: CartService,
     private addressService: AddressService,
     private orderService: OrderService,
-    public toastrService: ToastrService
+    public toastrService: ToastrService,
+    private paymentService: PaymentService
   ) { }
 
   ngOnInit(): void {
+    this.billReq.paymentMethod = "POD";
     this.getProductInCart();
     this.getAddressDefault();
   }
@@ -77,12 +80,31 @@ export class PaymentComponent implements OnInit {
     this.calculateAmount();
   }
 
+  defaultPaymentMethod() {
+    this.billReq.paymentMethod = "POD";
+  }
+
+  VnPayMethod() {
+    this.billReq.paymentMethod = "VNPAY";
+  }
+
   processOrder() {
     this.billReq.addressId = this.addressDefault.id;
-    this.billReq.paymentMethod = 'POD';
-    this.billReq.totalAmount = this.totalAmount;
+    this.billReq.totalAmount = this.totalAmount - this.discount +
+      this.shippingAmount;
     this.billReq.shippingServiceId = this.shippingAmount == 20000 ? 1 : 2;
     this.billReq.descriptionPay = 'None';
+
+    console.log(this.billReq)
+    if (this.billReq.paymentMethod == "VNPAY") {
+      this.paymentService.createPayment(this.billReq.totalAmount).subscribe(data => {
+        console.log(data)
+        window.open(data.data.url)
+      }, error => {
+        this.toastrService.error('Có lỗi xảy ra vui lòng thử lại sau');
+        console.log(error);
+      })
+    }
 
     this.orderService.createBill(this.billReq).subscribe(data => {
       console.log(data);
